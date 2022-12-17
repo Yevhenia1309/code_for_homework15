@@ -1,0 +1,54 @@
+import math
+
+class Fraction:
+     def __init__(self, num: int, den: int):
+         """Перевіряємо, щоб не було 0 у чисельнику і знаменнику та було скорочення дробі"""
+         if num != 0 and den != 0:
+             k = math.gcd(num, den)
+             self.num = num // k
+             self.den = den // k
+         else:
+             raise ValueError
+
+
+     def __eq__(self, other: int):
+         """Перевірка на рівність дробів"""
+         num_1 = self.num * other.den
+         num_2 = other.num * self.den
+         return num_1 == num_2
+
+
+     def __add__(self, other: int):
+         """Додавання дробів"""
+         newnum = self.num * other.den + self.den * other.num
+         newden = self.den * other.den
+         return Fraction(newnum, newden)
+
+
+     def __sub__(self, other: int):
+         """Віднімання дробів"""
+         return Fraction(self.num * other.den - other.num * self.den, self.den * other.den)
+
+
+     def __mul__(self, other: int):
+         """Множення дробів"""
+         return Fraction(self.num * other.num, self.den * other.den)
+
+
+     def __truediv__(self, other: int):
+         """Ділення дробів"""
+         return Fraction(self.num * other.den, self.den * other.num)
+
+
+     def __str__(self):
+         return f'{self.num}/{self.den}'
+
+
+x = Fraction(3, 15)
+y = Fraction(2, 15)
+
+print(x + y)
+print(x - y)
+print(x == y)
+print(x * y)
+print(x / y)
