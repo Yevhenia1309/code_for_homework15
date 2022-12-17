@@ -1,0 +1,49 @@
+class Rectangle():
+
+    def __init__(self, length: int | float, width: int | float):
+        self.length = length
+        self.width = width
+
+    def area(self) -> int | float:
+        return self.length * self.width
+
+    def __gt__(self, other):
+        return self.area() > other.area()
+
+    def __lt__(self, other):
+        return self.area() < other.area()
+
+    def __ge__(self, other):
+        return self.area() >= other.area()
+
+    def __le__(self, other):
+        return self.area() <= other.area()
+
+    def __add__(self, other):
+        if isinstance(other, Rectangle):
+            return self.area() + other.area()
+        if isinstance(other, int | float):
+            return self.area() + other
+        return NotImplemented
+
+    def __radd__(self, other):
+        if isinstance(other, (int, float)):
+            return self.area() + other
+        return NotImplemented
+
+    def __mul__(self, other):
+        if isinstance(other, (int, float)):
+            return self.area() * other
+        return NotImplemented
+
+    def __str__(self):
+        return f'{self.length} * {self.width}'
+
+Rectangle_1 = Rectangle(5, 7)
+Rectangle_2 = Rectangle(2, 4)
+
+print(Rectangle_1.area())
+print(Rectangle_2.area())
+
+print(Rectangle_1.__add__(Rectangle_2))
+print(Rectangle_1.__mul__(3))
